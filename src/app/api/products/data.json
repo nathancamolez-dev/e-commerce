@@ -1,0 +1,22 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Bolsa de croche formato de rosa prata",
+      "slug": "bolsa-de-croche-formato-de-rosa-prata",
+      "price": 399.9,
+      "image": "/bolsa2.png",
+      "description": "Bolsa de croche pequena com o formato de uma rosa, na cor de linha prata brilhante.",
+      "featured": true
+    },
+    {
+      "id": 2,
+      "title": "Bolsa de croche formato de rosa prata",
+      "slug": "bolsa-de-croche-formato-de-rosa-prata",
+      "price": 399.9,
+      "image": "/bolsa1.png",
+      "description": "Bolsa de croche pequena com o formato de uma rosa, na cor de linha prata brilhante.",
+      "featured": true
+    }
+  ]
+}
