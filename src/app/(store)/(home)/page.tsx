@@ -17,7 +17,6 @@ async function getFeaturedProducts(): Promise<Product[]> {
 
 export default async function Home() {
   const [highlightedProduct, ...otherProducts] = await getFeaturedProducts()
-  console.log(otherProducts)
   return (
     <div className="grid max-h-[860px] grid-cols-9 grid-rows-6 gap-6">
       <Link
