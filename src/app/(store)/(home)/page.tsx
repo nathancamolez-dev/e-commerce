@@ -20,7 +20,7 @@ export default async function Home() {
   return (
     <div className="grid max-h-[860px] grid-cols-9 grid-rows-6 gap-6">
       <Link
-        href={`/products/${highlightedProduct.slug}`}
+        href={`/product/${highlightedProduct.slug}`}
         className="relative group col-span-5 row-span-6 rounded-lg bg-zinc-50 overflow-hidden flex  justify-center items-end"
       >
         <Image
@@ -32,7 +32,7 @@ export default async function Home() {
           quality={100}
         />
 
-        <div className="absolute bottom-28 right-28 h-12 flex items-center gap-2 max-w-[280px] rounded-full border-2 border-zinc-500 bg-zinc-50/60 p-1 pl-5">
+        <div className="absolute bottom-28 right-28 h-12 flex items-center gap-2 max-w-[280px] rounded-full border-2 border-zinc-500 bg-violet-200/60 p-1 pl-5">
           <span className="text-sm truncate">{highlightedProduct.title}</span>
           <span className="flex h-full items-center justify-center rounded-full bg-zinc-100 px-4 font-semibold">
             {highlightedProduct.price.toLocaleString('pt-BR', {
@@ -46,7 +46,7 @@ export default async function Home() {
         return (
           <Link
             key={product.id}
-            href={`/products/${product.slug}`}
+            href={`/product/${product.slug}`}
             className="group relative col-span-3 row-span-3 rounded-lg bg-zinc-50 overflow-hidden flex  justify-center items-end"
           >
             <Image
@@ -57,7 +57,7 @@ export default async function Home() {
               alt="Product"
               quality={100}
             />
-            <div className="absolute bottom-10 right-28 h-12 flex items-center gap-2 max-w-[280px] rounded-full border-2 border-zinc-500 bg-zinc-50/60 p-1 pl-5">
+            <div className="absolute bottom-10 right-28 h-12 flex items-center gap-2 max-w-[280px] rounded-full border-2 border-zinc-500 bg-violet-200/60 p-1 pl-5">
               <span className="text-sm truncate">{product.title}</span>
               <span className="flex h-full items-center justify-center rounded-full bg-zinc-100 px-4 font-semibold">
                 {product.price.toLocaleString('pt-BR', {
