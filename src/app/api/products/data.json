@@ -11,11 +11,20 @@
     },
     {
       "id": 2,
-      "title": "Bolsa de croche formato de rosa prata",
-      "slug": "bolsa-de-croche-formato-de-rosa-prata",
-      "price": 399.9,
-      "image": "/bolsa1.png",
-      "description": "Bolsa de croche pequena com o formato de uma rosa, na cor de linha prata brilhante.",
+      "title": "Decoração de parede",
+      "slug": "decoracao-de-parede",
+      "price": 49.9,
+      "image": "/decoracao-de-parede.png",
+      "description": "Decoração de parede com formato redondo.",
+      "featured": true
+    },
+    {
+      "id": 3,
+      "title": "Bacia redonda",
+      "slug": "bacia-redonda",
+      "price": 39.9,
+      "image": "/bacia.png",
+      "description": "Bacia redonda.",
       "featured": true
     }
   ]
