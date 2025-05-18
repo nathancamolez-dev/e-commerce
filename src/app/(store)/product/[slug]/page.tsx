@@ -21,7 +21,9 @@ async function getProductDetails(slug: string): Promise<Product> {
   return product
 }
 export default async function ProductPage({ params }: ProductProps) {
-  const product = await getProductDetails(params.slug)
+  const slug = z.string().parse(params.slug)
+  const product = await getProductDetails(slug)
+
   return (
     <div className="relative grid max-h-[860px] grid-cols-3">
       <div className="col-span-2 overflow-hidden">

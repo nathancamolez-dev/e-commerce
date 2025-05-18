@@ -1,9 +1,6 @@
 import { z } from 'zod'
 import data from '../data.json'
-export async function GET(
-  _: Request,
-  { params }: { params: { slug: string } }
-) {
+export async function GET({ params }: { params: { slug: string } }) {
   const slug = z.string().parse(params.slug)
 
   const productDetails = data.products.find(product => product.slug === slug)
