@@ -4,9 +4,9 @@ import Image from 'next/image'
 import { z } from 'zod'
 
 interface ProductProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 async function getProductDetails(slug: string): Promise<Product> {
@@ -20,7 +20,8 @@ async function getProductDetails(slug: string): Promise<Product> {
 
   return product
 }
-export default async function ProductPage({ params }: ProductProps) {
+export default async function ProductPage(props: ProductProps) {
+  const params = await props.params;
   const slug = z.string().parse(params.slug)
   const product = await getProductDetails(slug)
 
