@@ -13,7 +13,10 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'BareMade',
+  title: {
+    template: '%s | BareMade',
+    default: 'BareMade',
+  },
 }
 
 export default function RootLayout({
