@@ -3,14 +3,22 @@
 import { useCart } from '@/contexts/cart-context'
 
 export interface AddToCartButtonProps {
+  name: string
   productId: string
+  image: string
+  price: number
 }
 
-export function AddToCartButton({ productId }: AddToCartButtonProps) {
+export function AddToCartButton({
+  productId,
+  name,
+  image,
+  price,
+}: AddToCartButtonProps) {
   const { addToCart } = useCart()
 
   function handleAddToCart() {
-    addToCart(productId)
+    addToCart(productId, name, image, price)
   }
 
   return (

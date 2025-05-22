@@ -106,7 +106,12 @@ export default async function ProductPage(props: ProductProps) {
             </button>
           </div>
         </div>
-        <AddToCartButton productId={product.id} />
+        <AddToCartButton
+          productId={product.id}
+          name={product.title}
+          image={product.image}
+          price={product.price}
+        />
       </div>
     </div>
   )

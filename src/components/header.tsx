@@ -1,5 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { CartModal } from './cart-modal'
 import { CartWidget } from './cart-widget'
 import { SearchForm } from './search-form'
 
@@ -13,7 +14,8 @@ export function Header() {
         </Link>
         <SearchForm />
       </div>
-      <div className="flex items-center gap-4">
+      <div className=" flex items-center gap-4">
+        <CartModal />
         <CartWidget />
         <div className="w-px h-4 " />
 
