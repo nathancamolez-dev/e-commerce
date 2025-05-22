@@ -1,6 +1,5 @@
 import { api } from '@/data/api'
 import type { Product } from '@/data/types/product'
-import { Heading1 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
