@@ -66,7 +66,10 @@ export function CartModal() {
         className="relative"
         onClick={() => setIsOpen(true)}
       >
-        <ShoppingCart className="h-5 w-5" />
+        <div className="flex items-center gap-2">
+          <ShoppingCart className="h-5 w-5" />
+          <span className="text-sm">Cart ({items.length})</span>
+        </div>
       </button>
 
       {isOpen && (
@@ -124,7 +127,8 @@ export function CartModal() {
                         <div className="flex items-center gap-2 mt-auto">
                           <button
                             type="button"
-                            className="border flex justify-center items-center h-8 w-8 rounded-md cursor-pointer hover:bg-zinc-100"
+                            className="border flex justify-center items-center h-8 w-8 rounded-md cursor-pointer hover:bg-zinc-100 disabled:cursor-not-allowed bg-zinc-300"
+                            disabled={item.quantity === 1}
                             onClick={() =>
                               updateQuantity(item.productId, item.quantity - 1)
                             }
