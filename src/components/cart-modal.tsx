@@ -90,17 +90,19 @@ export function CartModal() {
             {items.length === 0 ? (
               <div className="flex flex-col items-center justify-center flex-1 py-12">
                 <ShoppingCart className="h-16 w-16 text-muted-foreground mb-4" />
-                <p className="text-lg font-medium">Your cart is empty</p>
+                <p className="text-lg font-medium">Seu carrinho está vazio</p>
                 <p className="text-muted-foreground mt-1">
-                  Add items to get started
+                  Adicione itens ao seu carrinho para continuar.
                 </p>
-                <button
-                  type="button"
-                  className="mt-6"
-                  onClick={() => setIsOpen(false)}
-                >
-                  Continue Shopping
-                </button>
+                <div className="pt-8 gap-4">
+                  <button
+                    type="button"
+                    className="border bg-emerald-300  p-2 rounded-md cursor-pointer hover:bg-emerald-500"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    Continue comprando.
+                  </button>
+                </div>
               </div>
             ) : (
               <>
@@ -122,7 +124,10 @@ export function CartModal() {
                       <div className="flex flex-col flex-1 gap-1">
                         <h3 className="font-medium">{item.name}</h3>
                         <p className="text-sm text-muted-foreground">
-                          ${item.price.toFixed(2)}
+                          {item.price.toLocaleString('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL',
+                          })}
                         </p>
                         <div className="flex items-center gap-2 mt-auto">
                           <button
@@ -163,19 +168,31 @@ export function CartModal() {
                 <div className="border-t p-4">
                   <div className="flex justify-between py-2">
                     <span>Subtotal</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>
+                      {subtotal.toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                    </span>
                   </div>
                   <div className="h-px bg-gray-200 dark:bg-gray-800 my-4" />
                   <div className="flex justify-between py-2 font-medium">
                     <span>Total</span>
-                    <span>${subtotal.toFixed(2)}</span>
+                    <span>
+                      {subtotal.toLocaleString('pt-BR', {
+                        style: 'currency',
+                        currency: 'BRL',
+                      })}
+                    </span>
                   </div>
-                  <button
-                    type="button"
-                    className="mt-8 flex h-12 w-32 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400"
-                  >
-                    Comprar
-                  </button>
+                  <div className="flex justify-center items-center">
+                    <button
+                      type="button"
+                      className="mt-8 flex h-12 w-32 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400"
+                    >
+                      Pagamento
+                    </button>
+                  </div>
                 </div>
               </>
             )}
