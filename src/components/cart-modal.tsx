@@ -63,7 +63,7 @@ export function CartModal() {
     <>
       <button
         type="button"
-        className="relative"
+        className="relative cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
         <div className="flex items-center gap-2">
@@ -132,7 +132,7 @@ export function CartModal() {
                         <div className="flex items-center gap-2 mt-auto">
                           <button
                             type="button"
-                            className="border flex justify-center items-center h-8 w-8 rounded-md cursor-pointer hover:bg-zinc-100 disabled:cursor-not-allowed bg-zinc-300"
+                            className="border flex justify-center items-center h-8 w-8 rounded-md cursor-pointer hover:bg-zinc-100 disabled:bg-zinc-300 disabled:cursor-not-allowed"
                             disabled={item.quantity === 1}
                             onClick={() =>
                               updateQuantity(item.productId, item.quantity - 1)

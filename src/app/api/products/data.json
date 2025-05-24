@@ -15,7 +15,7 @@
       "slug": "decoracao-de-parede",
       "price": 49.9,
       "image": "/decoracao-de-parede.png",
-      "description": "Decoração de pareded para a sua varanda, com um aspecto moderno mas ao mesmo tempo artesanal.",
+      "description": "Decoração de parede para a sua varanda, com um aspecto moderno mas ao mesmo tempo artesanal.",
       "featured": true
     },
     {
@@ -26,6 +26,33 @@
       "image": "/bacia.png",
       "description": "Bacia redonda com 2 cores  diferentes, disponivel em diversos tamanhos, Ideal para guardar frutas.",
       "featured": true
+    },
+    {
+      "id": 4,
+      "title": "Chaveiro macrame",
+      "slug": "chaveiro-macrame",
+      "price": 39.8,
+      "image": "/chaveiro-macrame.png",
+      "description": "Chaveiro macrame com mosquetão dourado",
+      "featured": false
+    },
+    {
+      "id": 5,
+      "title": "Vela aromatica",
+      "slug": "vela-aromatica",
+      "price": 79.9,
+      "image": "/vela-aromatica.png",
+      "description": "Vela aromatica com cheiro de nostalgia-cereja e avelã",
+      "featured": false
+    },
+    {
+      "id": 6,
+      "title": "Bolsa de croche formato de rosa prata",
+      "slug": "bolsa-de-croche-formato-de-rosa-prata",
+      "price": 399.9,
+      "image": "/bolsa2.png",
+      "description": "Bolsa de croche pequena com o formato de uma rosa, na cor de linha prata brilhante.",
+      "featured": false
     }
   ]
 }
