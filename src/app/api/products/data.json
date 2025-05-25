@@ -8,7 +8,7 @@
       "image": "/bolsa2.png",
       "description": "Bolsa de croche pequena com o formato de uma rosa, na cor de linha prata brilhante.",
       "featured": true,
-      "options": ["A", "B", "C"]
+      "options": ["Rose", "Prata", "Bronze"]
     },
     {
       "id": 2,
@@ -18,7 +18,7 @@
       "image": "/decoracao-de-parede.png",
       "description": "Decoração de parede para a sua varanda, com um aspecto moderno mas ao mesmo tempo artesanal.",
       "featured": true,
-      "options": ["A", "B", "C"]
+      "options": ["Claro", "Marrom", "Escuro"]
     },
     {
       "id": 3,

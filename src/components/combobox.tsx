@@ -21,6 +21,7 @@ import { cn } from '@/lib/utils'
 
 interface ComboboxDemoProps {
   name: string
+  required: boolean
   optionsAvailable: string[]
   onOptionSelect?: (option: string) => void
 }
@@ -28,17 +29,20 @@ interface ComboboxDemoProps {
 export default function ComboboxDemo({
   name,
   optionsAvailable,
+  required,
   onOptionSelect,
 }: ComboboxDemoProps) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState('')
-
-  console.log(optionsAvailable)
+  const [touched, setTouched] = React.useState(false)
 
   const options = optionsAvailable.map(option => ({
     value: option.toLowerCase().replace(/\s+/g, '-'),
     label: option,
   }))
+
+  const showError = required && touched && !value
+  const errorMessage = `Por favor selecione um modelo do ${name}`
 
   return (
     <div className="mt-8">
@@ -46,6 +50,7 @@ export default function ComboboxDemo({
         <div className="space-y-2">
           <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
             {name} Options
+            {required && <span className="text-red-500 ml-1">*</span>}
           </label>
           <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
@@ -53,7 +58,11 @@ export default function ComboboxDemo({
                 variant="outline"
                 role="combobox"
                 aria-expanded={open}
-                className="w-full justify-between"
+                className={cn(
+                  'w-full justify-between',
+                  showError && 'border-red-500 focus:ring-red-500'
+                )}
+                onBlur={() => setTouched(true)}
               >
                 {value
                   ? options.find(option => option.value === value)?.label
@@ -65,7 +74,7 @@ export default function ComboboxDemo({
               <Command>
                 <CommandInput placeholder={`Search ${name} options...`} />
                 <CommandList>
-                  <CommandEmpty>No {name} option found.</CommandEmpty>
+                  <CommandEmpty>Nenhuma {name} opção encontrada.</CommandEmpty>
                   <CommandGroup>
                     {options.map(option => (
                       <CommandItem
@@ -100,11 +109,14 @@ export default function ComboboxDemo({
               </Command>
             </PopoverContent>
           </Popover>
+          {showError && (
+            <p className="text-sm text-red-500 mt-1">{errorMessage}</p>
+          )}
         </div>
 
         {value && (
           <div className="text-sm text-muted-foreground">
-            You selected:{' '}
+            Selecionado:{' '}
             <span className="font-medium">
               {options.find(option => option.value === value)?.label}
             </span>
