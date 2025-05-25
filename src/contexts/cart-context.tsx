@@ -6,6 +6,7 @@ interface CartItem {
   name: string
   image: string
   price: number
+  option: string
   quantity: number
 }
 
@@ -16,6 +17,7 @@ interface CartContextType {
     image: string,
     productId: string,
     price: number,
+    option: string,
     quantity?: number
   ) => void
   removeItem: (productId: string) => void
@@ -31,6 +33,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
     name: string,
     image: string,
     price: number,
+    option: string,
     quantityMod?: number
   ) {
     setCartItem(state => {
@@ -47,7 +50,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
           return item
         })
       }
-      return [...state, { productId, name, image, price, quantity: 1 }]
+      return [...state, { productId, name, image, price, option, quantity: 1 }]
     })
   }
 

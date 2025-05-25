@@ -1,4 +1,4 @@
-import { AddToCartButton } from '@/components/add-to-cart-button'
+import { FormAddToCart } from '@/components/form-add-to-cart'
 import { api } from '@/data/api'
 import type { Product } from '@/data/types/product'
 import type { Metadata } from 'next'
@@ -82,35 +82,12 @@ export default async function ProductPage(props: ProductProps) {
             s/ juros.
           </span>
         </div>
-
-        <div className="mt-8 space-y-4">
-          <span className="block font-semibold">Opções</span>
-          <div className="flex gap-2">
-            <button
-              type="button"
-              className="flex h-9 w-14 items-center justify-center rounded-full border border-zinc-700 bg-zinc-100 text-sm font-semibold"
-            >
-              P
-            </button>
-            <button
-              type="button"
-              className="flex h-9 w-14 items-center justify-center rounded-full border border-zinc-700 bg-zinc-100 text-sm font-semibold"
-            >
-              M
-            </button>
-            <button
-              type="button"
-              className="flex h-9 w-14 items-center justify-center rounded-full border border-zinc-700 bg-zinc-100 text-sm font-semibold"
-            >
-              G
-            </button>
-          </div>
-        </div>
-        <AddToCartButton
+        <FormAddToCart
           productId={product.id}
           name={product.title}
           image={product.image}
           price={product.price}
+          options={product.options}
         />
       </div>
     </div>

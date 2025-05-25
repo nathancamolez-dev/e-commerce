@@ -122,7 +122,9 @@ export function CartModal() {
                         />
                       </div>
                       <div className="flex flex-col flex-1 gap-1">
-                        <h3 className="font-medium">{item.name}</h3>
+                        <h3 className="font-medium">
+                          {item.name} - {item.option}
+                        </h3>
                         <p className="text-sm text-muted-foreground">
                           {item.price.toLocaleString('pt-BR', {
                             style: 'currency',
