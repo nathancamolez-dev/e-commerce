@@ -28,7 +28,7 @@ export default function AccountDropDownMenu() {
               width={24}
               height={24}
             />
-            <span className="text-sm">Account</span>
+            <span className="text-sm">John</span>
             <ChevronDown className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>

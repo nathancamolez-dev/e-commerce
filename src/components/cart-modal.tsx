@@ -82,7 +82,7 @@ export function CartModal() {
       >
         <div className="flex items-center gap-2">
           <ShoppingCart className="h-5 w-5" />
-          <span className="text-sm">Cart ({items.length})</span>
+          <span className="text-sm">Carrinho ({items.length})</span>
         </div>
       </button>
 
