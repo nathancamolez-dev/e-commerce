@@ -1,7 +1,14 @@
 'use client'
 
 import { useCart } from '@/contexts/cart-context'
-import { Minus, Plus, ShoppingCart, Trash2, X } from 'lucide-react'
+import {
+  BrushCleaning,
+  Minus,
+  Plus,
+  ShoppingCart,
+  Trash2,
+  X,
+} from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
@@ -9,7 +16,7 @@ export function CartModal() {
   const [isOpen, setIsOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
 
-  const { items, addToCart, removeItem, subTotal } = useCart()
+  const { items, addToCart, removeItem, subTotal, clearCart } = useCart()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -60,6 +67,10 @@ export function CartModal() {
 
   function handleRemoveItem(cartId: string) {
     removeItem(cartId)
+  }
+
+  function handleClearCart() {
+    clearCart()
   }
 
   return (
@@ -170,8 +181,17 @@ export function CartModal() {
                       </div>
                     </div>
                   ))}
+                  <div className="flex items-cetner justify-center ">
+                    <button
+                      type="button"
+                      onClick={handleClearCart}
+                      className="mt-4 flex p-1 gap-2 h-12 w-42 items-center justify-center rounded-full bg-rose-300 cursor-pointer hover:bg-rose-400"
+                    >
+                      <BrushCleaning className="h-4 w-4" />
+                      Limpar carrinho
+                    </button>
+                  </div>
                 </div>
-
                 <div className="border-t p-4">
                   <div className="flex justify-between py-2">
                     <span>Subtotal</span>
