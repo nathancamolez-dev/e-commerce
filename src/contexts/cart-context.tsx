@@ -2,6 +2,7 @@
 import { createContext, useContext, useState } from 'react'
 
 interface CartItem {
+  cartId: string
   productId: string
   name: string
   image: string
@@ -20,7 +21,7 @@ interface CartContextType {
     option: string,
     quantity?: number
   ) => void
-  removeItem: (productId: string) => void
+  removeItem: (cartId: string) => void
 }
 
 const CartContext = createContext({} as CartContextType)
@@ -37,11 +38,13 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
     quantityMod?: number
   ) {
     setCartItem(state => {
-      const productInCart = state.some(item => item.productId === productId)
+      const productInCart = state.some(
+        item => item.productId === productId && item.option === option
+      )
 
       if (productInCart) {
         return state.map(item => {
-          if (item.productId === productId) {
+          if (item.productId === productId && item.option === option) {
             return {
               ...item,
               quantity: quantityMod ? quantityMod : item.quantity + 1,
@@ -50,13 +53,24 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
           return item
         })
       }
-      return [...state, { productId, name, image, price, option, quantity: 1 }]
+      return [
+        ...state,
+        {
+          cartId: crypto.randomUUID().toString(),
+          productId,
+          name,
+          image,
+          price,
+          option,
+          quantity: 1,
+        },
+      ]
     })
   }
 
-  function removeItem(productId: string) {
+  function removeItem(cartId: string) {
     setCartItem(state => {
-      return state.filter(item => item.productId !== productId)
+      return state.filter(item => item.cartId !== cartId)
     })
   }
 

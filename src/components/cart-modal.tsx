@@ -55,8 +55,8 @@ export function CartModal() {
     addToCart(item.productId, item.name, item.image, item.price, quantity)
   }
 
-  function handleRemoveItem(productId: string) {
-    removeItem(productId)
+  function handleRemoveItem(cartId: string) {
+    removeItem(cartId)
   }
 
   return (
@@ -157,7 +157,9 @@ export function CartModal() {
                           <button
                             type="button"
                             className="border flex justify-center items-center h-8 w-8 rounded-md bg-red-300/55 hover:bg-red-300 cursor-pointer"
-                            onClick={() => handleRemoveItem(item.productId)}
+                            onClick={() =>
+                              handleRemoveItem(item.cartId as string)
+                            }
                           >
                             <Trash2 className="h-4 w-4" />
                           </button>
