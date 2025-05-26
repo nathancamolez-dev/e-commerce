@@ -13,6 +13,7 @@ interface CartItem {
 
 interface CartContextType {
   items: CartItem[]
+  subTotal: number
   addToCart: (
     name: string,
     image: string,
@@ -28,6 +29,10 @@ const CartContext = createContext({} as CartContextType)
 
 export function CartProviver({ children }: { children: React.ReactNode }) {
   const [cartItem, setCartItem] = useState<CartItem[]>([])
+
+  const subTotal = cartItem.reduce((acc, item) => {
+    return acc + item.price * item.quantity
+  }, 0)
 
   function addToCart(
     productId: string,
@@ -75,7 +80,9 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <CartContext.Provider value={{ items: cartItem, addToCart, removeItem }}>
+    <CartContext.Provider
+      value={{ items: cartItem, addToCart, removeItem, subTotal }}
+    >
       {children}
     </CartContext.Provider>
   )

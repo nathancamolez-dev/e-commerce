@@ -9,11 +9,11 @@ export function CartModal() {
   const [isOpen, setIsOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
 
-  const { items, addToCart, removeItem } = useCart()
+  const { items, addToCart, removeItem, subTotal } = useCart()
 
-  const subtotal = items.reduce((acc, item) => {
-    return acc + item.price * item.quantity
-  }, 0)
+  // const subtotal = items.reduce((acc, item) => {
+  //   return acc + item.price * item.quantity
+  // }, 0)
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -180,7 +180,7 @@ export function CartModal() {
                   <div className="flex justify-between py-2">
                     <span>Subtotal</span>
                     <span>
-                      {subtotal.toLocaleString('pt-BR', {
+                      {subTotal.toLocaleString('pt-BR', {
                         style: 'currency',
                         currency: 'BRL',
                       })}
@@ -190,7 +190,7 @@ export function CartModal() {
                   <div className="flex justify-between py-2 font-medium">
                     <span>Total</span>
                     <span>
-                      {subtotal.toLocaleString('pt-BR', {
+                      {subTotal.toLocaleString('pt-BR', {
                         style: 'currency',
                         currency: 'BRL',
                       })}
@@ -199,6 +199,9 @@ export function CartModal() {
                   <div className="flex justify-center items-center">
                     <button
                       type="button"
+                      onClick={() => {
+                        console.log('Pagando ', items, subTotal)
+                      }}
                       className="mt-8 flex h-12 w-32 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400"
                     >
                       Pagamento
