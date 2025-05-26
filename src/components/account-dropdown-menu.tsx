@@ -1,15 +1,17 @@
 'use client'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu'
+
 import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 import { Button } from './ui/button'
-import { DropdownMenuItem, DropdownMenuSeparator } from './ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu'
 
 export default function AccountDropDownMenu() {
   const [isOpen, setIsOpen] = useState(false)
@@ -32,10 +34,7 @@ export default function AccountDropDownMenu() {
             <ChevronDown className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent
-          align="end"
-          className="bg-white shadow-lg  w-56 border p-2 rounded-md  z-4 "
-        >
+        <DropdownMenuContent>
           <DropdownMenuLabel>
             <div className="flex flex-col space-y-1">
               <p className="text-sm font-medium">John Doe</p>

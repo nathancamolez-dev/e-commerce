@@ -44,9 +44,9 @@ export default async function Search(props: SearchProps) {
             >
               <Image
                 src={product.image}
-                className="group-hover:scale-105 transition-transform duration-500"
-                width={480}
-                height={480}
+                className="w-[460] h-[460] object-cover group-hover:scale-105  transition-transform duration-500"
+                width={460}
+                height={460}
                 alt="Product"
                 quality={100}
               />
