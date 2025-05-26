@@ -7,6 +7,11 @@ export async function GET(request: NextRequest) {
 
   const query = z.string().parse(searchParams.get('q'))
 
+  if (!query) {
+    const products = data.products
+    return Response.json(products)
+  }
+
   const products = data.products.filter(product => {
     return product.title.toLocaleLowerCase().includes(query.toLocaleLowerCase())
   })

@@ -1,3 +1,4 @@
+import { ShoppingBag } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { CartModal } from './cart-modal'
@@ -12,6 +13,13 @@ export function Header() {
           <span className="group-hover:text-zinc-500">Made</span>
         </Link>
         <SearchForm />
+        <Link
+          href="/search?q="
+          className=" flex gap-2  ml-8 text-md hover:text-zinc-500"
+        >
+          <ShoppingBag />
+          Produtos{' '}
+        </Link>
       </div>
       <div className=" flex items-center gap-4">
         <CartModal />

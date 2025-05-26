@@ -2,7 +2,6 @@ import { api } from '@/data/api'
 import type { Product } from '@/data/types/product'
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect } from 'next/navigation'
 
 interface SearchProps {
   searchParams: Promise<{ q: string }>
@@ -26,18 +25,15 @@ async function searchProducts(query: string): Promise<Product[]> {
 export default async function Search(props: SearchProps) {
   const searchParams = await props.searchParams
   const { q: query } = searchParams
-
-  if (!query) {
-    redirect('/')
-  }
-  const products = await searchProducts(query)
+  const products = await searchProducts(!query ? '' : query)
 
   return (
     <div className="flex flex-col gap-4">
-      <p className="text-sm">
-        Resultados para: <span className="font-semibold">{query}</span>
-      </p>
-
+      {!!query && (
+        <p className="text-sm">
+          Resultados para: <span className="font-semibold">{query}</span>
+        </p>
+      )}
       <div className="grid grid-cols-3 gap-6">
         {products.map(product => {
           return (

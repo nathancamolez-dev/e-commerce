@@ -18,10 +18,6 @@ export function SearchForm() {
 
     const query = data.q
 
-    if (!query) {
-      return null
-    }
-
     router.push(`/search?q=${query}`)
   }
 
@@ -37,7 +33,6 @@ export function SearchForm() {
         defaultValue={query ?? ''}
         type="text"
         className="flex-1 bg-transparent text-sm outline-none placeholder:text-zinc-800"
-        required
       />
     </form>
   )
