@@ -11,10 +11,6 @@ export function CartModal() {
 
   const { items, addToCart, removeItem, subTotal } = useCart()
 
-  // const subtotal = items.reduce((acc, item) => {
-  //   return acc + item.price * item.quantity
-  // }, 0)
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
