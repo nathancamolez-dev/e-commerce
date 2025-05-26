@@ -46,13 +46,20 @@ export function CartModal() {
     }
   }, [isOpen])
 
-  function updateQuantity(productId: string, quantity: number) {
-    const item = items.find(item => item.productId === productId)
+  function updateQuantity(cartId: string, quantity: number) {
+    const item = items.find(item => item.cartId === cartId)
     if (!item) {
       return
     }
 
-    addToCart(item.productId, item.name, item.image, item.price, quantity)
+    addToCart(
+      item.productId,
+      item.name,
+      item.image,
+      item.price,
+      item.option,
+      quantity
+    )
   }
 
   function handleRemoveItem(cartId: string) {
@@ -109,7 +116,7 @@ export function CartModal() {
                 <div className="flex-1 overflow-auto p-4">
                   {items.map(item => (
                     <div
-                      key={item.productId}
+                      key={item.cartId}
                       className="flex gap-4 py-4 border-b last:border-0"
                     >
                       <div className="shrink-0">
@@ -137,7 +144,7 @@ export function CartModal() {
                             className="border flex justify-center items-center h-8 w-8 rounded-md cursor-pointer hover:bg-zinc-100 disabled:bg-zinc-300 disabled:cursor-not-allowed"
                             disabled={item.quantity === 1}
                             onClick={() =>
-                              updateQuantity(item.productId, item.quantity - 1)
+                              updateQuantity(item.cartId, item.quantity - 1)
                             }
                           >
                             <Minus className="h-3 w-3" />
@@ -149,7 +156,7 @@ export function CartModal() {
                             type="button"
                             className="border flex justify-center items-center h-8 w-8 rounded-md cursor-pointer hover:bg-zinc-100"
                             onClick={() =>
-                              updateQuantity(item.productId, item.quantity + 1)
+                              updateQuantity(item.cartId, item.quantity + 1)
                             }
                           >
                             <Plus className="h-3 w-3" />
