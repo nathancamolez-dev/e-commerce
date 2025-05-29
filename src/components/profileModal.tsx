@@ -9,13 +9,23 @@ export default function ProfileModal() {
     return null
   }
   return (
-    <div className="absolute inset-0 z-50 flex items-center justify-center bg-white/70 ">
-      <div className="relative w-full max-w-md bg-white p-6 rounded-xl border border-zinc-200 shadow-lg space-y-6 ">
+    <div
+      className={`fixed inset-0 z-50 bg-black/70  flex items-center justify-center
+        `}
+    >
+      <div
+        data-state={isOpen ? 'open' : 'closed'}
+        className="relative bg-popover text-popover-foreground rounded-md border p-6 shadow-md w-full max-w-md
+        data-[state=open]:animate-in data-[state=closed]:animate-out
+        data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0
+        data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
+        transition-all duration-300 ease-in-out"
+      >
         <div className="absolute -top-9 -right-9">
           <AvatarForm />
         </div>
 
-        <h1 className="text-3xl font-bold text-center">Perfil</h1>
+        <h1 className="text-3xl font-bold text-start">Perfil</h1>
 
         <form className="space-y-6">
           <div className="space-y-2">
