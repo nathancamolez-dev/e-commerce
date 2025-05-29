@@ -1,5 +1,6 @@
 'use client'
 
+import { useUserModal } from '@/contexts/user-modal-context'
 import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
@@ -15,6 +16,7 @@ import {
 } from './ui/dropdown-menu'
 
 export default function AccountDropDownMenu() {
+  const { openModal } = useUserModal()
   const [isOpen, setIsOpen] = useState(false)
 
   const router = useRouter()
@@ -51,16 +53,13 @@ export default function AccountDropDownMenu() {
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem
-            onClick={() => handleAccountAction('profile')}
-            className="cursor-pointer"
-          >
+          <DropdownMenuItem onClick={openModal} className="cursor-pointer">
             <User className="mr-2 h-4 w-4" />
-            Profile
+            Perfil
           </DropdownMenuItem>
 
           <DropdownMenuItem
-            onClick={() => handleAccountAction('settings')}
+            onClick={() => handleAccountAction('profile')}
             className="cursor-pointer"
           >
             <Settings className="mr-2 h-4 w-4" />

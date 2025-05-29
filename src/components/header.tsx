@@ -1,5 +1,4 @@
 import { ShoppingBag } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import AccountDropDownMenu from './account-dropdown-menu'
 import { CartModal } from './cart-modal'
