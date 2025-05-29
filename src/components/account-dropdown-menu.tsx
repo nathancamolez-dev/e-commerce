@@ -2,6 +2,7 @@
 
 import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from './ui/button'
 import {
@@ -15,6 +16,12 @@ import {
 
 export default function AccountDropDownMenu() {
   const [isOpen, setIsOpen] = useState(false)
+
+  const router = useRouter()
+
+  function handleAccountAction(action: string) {
+    router.push(`/${action}`)
+  }
   return (
     <div className="flex items-center">
       <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
@@ -30,15 +37,15 @@ export default function AccountDropDownMenu() {
               width={24}
               height={24}
             />
-            <span className="text-sm">John</span>
+            <span className="text-sm">Nathan</span>
             <ChevronDown className="w-4 h-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>
             <div className="flex flex-col space-y-1">
-              <p className="text-sm font-medium">John Doe</p>
-              <p className="text-xs text-gray-500">john@example.com</p>
+              <p className="text-sm font-medium">Nathan Camolez</p>
+              <p className="text-xs text-gray-500">nathan.camolez@unesp.br</p>
             </div>
           </DropdownMenuLabel>
 
