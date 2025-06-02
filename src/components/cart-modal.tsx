@@ -11,6 +11,7 @@ import {
 } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
+import { toast } from 'sonner'
 
 export function CartModal() {
   const [isOpen, setIsOpen] = useState(false)
@@ -63,14 +64,53 @@ export function CartModal() {
       item.option,
       quantity
     )
+    toast.success('Quantidade modificada com sucesso')
   }
 
   function handleRemoveItem(cartId: string) {
+    const item = items.find(item => item.cartId === cartId)
+    if (!item) {
+      return
+    }
     removeItem(cartId)
+    toast.error('Item removido com sucesso.', {
+      action: {
+        label: 'Desfazer',
+        onClick: () => {
+          addToCart(
+            item.productId,
+            item.name,
+            item.image,
+            item.price,
+            item.option,
+            item.quantity
+          )
+          setIsOpen(true)
+        },
+      },
+    })
   }
 
   function handleClearCart() {
     clearCart()
+    toast.error('Carrinho limpo com sucesso.', {
+      action: {
+        label: 'Desfazer',
+        onClick: () => {
+          items.map(item => {
+            addToCart(
+              item.productId,
+              item.name,
+              item.image,
+              item.price,
+              item.option,
+              item.quantity
+            )
+            setIsOpen(true)
+          })
+        },
+      },
+    })
   }
 
   return (

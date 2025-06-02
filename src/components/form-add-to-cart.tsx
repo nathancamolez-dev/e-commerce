@@ -2,6 +2,7 @@
 
 import { useCart } from '@/contexts/cart-context'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import ComboboxDemo from './combobox'
 
 export interface FormAddToCartProps {
@@ -28,6 +29,7 @@ export function FormAddToCart({
 
   function handleAddToCart() {
     addToCart(productId, name, image, price, optionSelected)
+    toast.success('Item adicionado ao carrinho')
   }
 
   return (

@@ -13,7 +13,7 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
           <Header />
           {children}
           <ProfileModal />
-          <Toaster />
+          <Toaster richColors />
         </div>
       </UserModalProvider>
     </CartProviver>

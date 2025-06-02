@@ -68,7 +68,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
           image,
           price,
           option,
-          quantity: 1,
+          quantity: quantityMod ? quantityMod : 1,
         },
       ]
     })
