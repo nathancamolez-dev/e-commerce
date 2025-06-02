@@ -21,7 +21,7 @@ export default function ProfileModal() {
         data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95
         transition-all duration-300 ease-in-out"
       >
-        <div className="absolute -top-9 -right-9">
+        <div className="items-center justify-center flex">
           <AvatarForm />
         </div>
 
