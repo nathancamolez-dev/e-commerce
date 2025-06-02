@@ -3,6 +3,7 @@ import ProfileModal from '@/components/profileModal'
 import { CartProviver } from '@/contexts/cart-context'
 import { UserModalProvider } from '@/contexts/user-modal-context'
 import type { ReactNode } from 'react'
+import { Toaster } from 'sonner'
 
 export default function StoreLayout({ children }: { children: ReactNode }) {
   return (
@@ -12,6 +13,7 @@ export default function StoreLayout({ children }: { children: ReactNode }) {
           <Header />
           {children}
           <ProfileModal />
+          <Toaster />
         </div>
       </UserModalProvider>
     </CartProviver>
