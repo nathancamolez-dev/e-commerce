@@ -1,6 +1,7 @@
 import type { NextRequest } from 'next/server'
 import { z } from 'zod'
 import data from '../data.json'
+
 export async function GET(
   req: NextRequest,
   { params }: { params: { slug: string } }
