@@ -69,7 +69,7 @@ export default function AccountDropDownMenu() {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            onClick={() => handleAccountAction('logout')}
+            onClick={() => handleAccountAction('login')}
             className="cursor-pointer text-red-600 focus:text-red-600"
           >
             <LogOut className="mr-2 h-4 w-4" />
