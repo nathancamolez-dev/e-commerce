@@ -1,3 +1,4 @@
+import LoginButton from '@/components/login-button'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
@@ -33,11 +34,7 @@ export default async function Login() {
               placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;"
             />
           </div>
-          <div className="flex justify-end">
-            <Button className="mt-6 bg-emerald-600 hover:bg-emerald-700">
-              Login
-            </Button>
-          </div>
+          <LoginButton />
         </form>
       </div>
     </div>
