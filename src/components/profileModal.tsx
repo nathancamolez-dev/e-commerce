@@ -1,6 +1,7 @@
 'use client'
 import { AvatarForm } from '@/components/avatar-form'
 import { Button } from '@/components/ui/button'
+import { useAuth } from '@/contexts/login-context'
 import { useUserModal } from '@/contexts/user-modal-context'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -8,8 +9,19 @@ import { toast } from 'sonner'
 export default function ProfileModal() {
   const [showUpdatePassword, setShowUpdatePassword] = useState(false)
   const { isOpen, closeModal } = useUserModal()
+  const { user } = useAuth()
+  if (!user) {
+    return null
+  }
+
   if (!isOpen) {
     return null
+  }
+
+  function formatAddress(address: string) {
+    return address
+      .replace(/(?<!\d)-(?!\d)/g, ' ')
+      .replace(/\b\w/g, match => match.toUpperCase())
   }
 
   function handleUpdatePassword() {
@@ -48,7 +60,7 @@ export default function ProfileModal() {
             <input
               className="w-max bg-zinc-100 rounded-md px-3 py-2 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               type="text"
-              placeholder="Nathan Alves Camolez"
+              placeholder={user.name}
             />
           </div>
 
@@ -60,7 +72,7 @@ export default function ProfileModal() {
               name="email"
               className="w-full bg-zinc-100 rounded-md px-3 py-2 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               type="email"
-              placeholder="nathan.camolez@unesp.br"
+              placeholder={user.email}
             />
           </div>
 
@@ -71,7 +83,7 @@ export default function ProfileModal() {
             <input
               className="w-full bg-zinc-100 rounded-md px-3 py-2 placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-emerald-500"
               type="text"
-              placeholder="Rua Palmeiras - 12 - SP"
+              placeholder={formatAddress(user.address)}
             />
           </div>
 

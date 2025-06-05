@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
   const user = data.profiles.find(profile => profile.email === email)
 
   if (user && user.password === password) {
-    return Response.json({ message: 'Login' }, { status: 200 })
+    return Response.json({ user }, { status: 200 })
   }
-  return Response.json({ message: 'Invalid credentials' }, { status: 401 })
+  return Response.json({ status: 401 })
 }
