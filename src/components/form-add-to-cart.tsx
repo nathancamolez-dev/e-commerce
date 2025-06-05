@@ -30,6 +30,10 @@ export function FormAddToCart({
   }
 
   function handleAddToCart() {
+    if (!user) {
+      toast.error('Por favor faça login para usar o carrinho')
+      return
+    }
     addToCart(productId, name, image, price, optionSelected)
     toast.success('Item adicionado ao carrinho')
   }
@@ -46,7 +50,7 @@ export function FormAddToCart({
         type="button"
         onClick={handleAddToCart}
         className="mt-8 flex h-12 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400 disabled:bg-emerald-700 disabled:cursor-not-allowed"
-        disabled={!optionSelected || !user}
+        disabled={!optionSelected}
       >
         Adicionar ao carrinho
       </button>

@@ -19,9 +19,16 @@ export default function LoginForm() {
   ) {
     event.preventDefault()
     const response = await login(email, password)
+
     if (response === 'ok') {
       toast.success('Login efetuado com sucesso.')
-      router.push('/')
+
+      if (localStorage.getItem('redirect')) {
+        router.push(localStorage.getItem('redirect') as string)
+        localStorage.removeItem('redirect')
+      } else {
+        router.push('/')
+      }
     } else if (response === 'error') {
       toast.error('Email ou senha invalidos.')
     }

@@ -11,7 +11,7 @@ import {
   X,
 } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
@@ -20,6 +20,7 @@ export function CartModal() {
   const [isOpen, setIsOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const pathname = usePathname()
 
   const { items, addToCart, removeItem, subTotal, clearCart } = useCart()
 
@@ -115,6 +116,11 @@ export function CartModal() {
         },
       },
     })
+  }
+
+  function handleLogin() {
+    localStorage.setItem('redirect', pathname)
+    router.push('/login')
   }
 
   return (
@@ -285,9 +291,7 @@ export function CartModal() {
                   <button
                     type="button"
                     className="border bg-emerald-300  p-2 rounded-md cursor-pointer hover:bg-emerald-500"
-                    onClick={() => {
-                      router.push('/login')
-                    }}
+                    onClick={handleLogin}
                   >
                     Fazer Login
                   </button>

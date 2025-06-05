@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/login-context'
 import { useUserModal } from '@/contexts/user-modal-context'
 import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { Button } from './ui/button'
 import {
@@ -103,6 +103,7 @@ export default function AccountDropDownMenu() {
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() => {
+                localStorage.setItem('redirect', usePathname())
                 router.push('/login')
               }}
               className="cursor-pointer"
