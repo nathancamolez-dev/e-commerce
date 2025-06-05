@@ -20,8 +20,14 @@ export default function AccountDropDownMenu() {
   const { openModal } = useUserModal()
   const [isOpen, setIsOpen] = useState(false)
   const { logout, user } = useAuth()
+  const pathname = usePathname()
 
   const router = useRouter()
+
+  function handleLogin() {
+    localStorage.setItem('redirect', pathname)
+    router.push('/login')
+  }
 
   function handleLogout() {
     logout()
@@ -91,21 +97,13 @@ export default function AccountDropDownMenu() {
           </DropdownMenuContent>
         ) : (
           <DropdownMenuContent>
-            <DropdownMenuItem
-              onClick={() => {
-                router.push('/login')
-              }}
-              className="cursor-pointer"
-            >
+            <DropdownMenuItem onClick={handleLogin} className="cursor-pointer">
               <User className="mr-2 h-4 w-4" />
               Login
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem
-              onClick={() => {
-                localStorage.setItem('redirect', usePathname())
-                router.push('/login')
-              }}
+              onClick={() => router.push('/register')}
               className="cursor-pointer"
             >
               <User className="mr-2 h-4 w-4" />
