@@ -1,8 +1,10 @@
 'use client'
 import { createContext, useContext, useState } from 'react'
+import { useAuth } from './login-context'
 
 interface CartItem {
   cartId: string
+  userEmail: string
   productId: string
   name: string
   image: string
@@ -29,6 +31,8 @@ interface CartContextType {
 const CartContext = createContext({} as CartContextType)
 
 export function CartProviver({ children }: { children: React.ReactNode }) {
+  const { user } = useAuth()
+
   const [cartItem, setCartItem] = useState<CartItem[]>([])
 
   const subTotal = cartItem.reduce((acc, item) => {
@@ -43,6 +47,9 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
     option: string,
     quantityMod?: number
   ) {
+    if (!user) {
+      return Error('user not logged in')
+    }
     setCartItem(state => {
       const productInCart = state.some(
         item => item.productId === productId && item.option === option
@@ -63,6 +70,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
         ...state,
         {
           cartId: crypto.randomUUID().toString(),
+          userEmail: user.email,
           productId,
           name,
           image,

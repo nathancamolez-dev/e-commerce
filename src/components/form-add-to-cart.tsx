@@ -1,6 +1,7 @@
 'use client'
 
 import { useCart } from '@/contexts/cart-context'
+import { useAuth } from '@/contexts/login-context'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import ComboboxDemo from './combobox'
@@ -21,6 +22,7 @@ export function FormAddToCart({
   options,
 }: FormAddToCartProps) {
   const { addToCart } = useCart()
+  const { user } = useAuth()
   const [optionSelected, setOptionSelected] = useState('')
 
   function handleOptionSelect(option: string) {
@@ -44,7 +46,7 @@ export function FormAddToCart({
         type="button"
         onClick={handleAddToCart}
         className="mt-8 flex h-12 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400 disabled:bg-emerald-700 disabled:cursor-not-allowed"
-        disabled={!optionSelected}
+        disabled={!optionSelected || !user}
       >
         Adicionar ao carrinho
       </button>

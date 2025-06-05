@@ -1,5 +1,6 @@
 'use client'
 
+import { useAuth } from '@/contexts/login-context'
 import { useUserModal } from '@/contexts/user-modal-context'
 import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
 import Image from 'next/image'
@@ -18,8 +19,13 @@ import {
 export default function AccountDropDownMenu() {
   const { openModal } = useUserModal()
   const [isOpen, setIsOpen] = useState(false)
+  const { logout } = useAuth()
 
   const router = useRouter()
+
+  function handleLogout() {
+    logout()
+  }
 
   function handleAccountAction(action: string) {
     router.push(`/${action}`)
@@ -69,7 +75,7 @@ export default function AccountDropDownMenu() {
           <DropdownMenuSeparator />
 
           <DropdownMenuItem
-            onClick={() => handleAccountAction('login')}
+            onClick={handleLogout}
             className="cursor-pointer text-red-600 focus:text-red-600"
           >
             <LogOut className="mr-2 h-4 w-4" />
