@@ -3,11 +3,11 @@ import Image from 'next/image'
 
 export default async function Login() {
   return (
-    <div className="flex  space-between items-center justify-start gap-28 h-screen pr-28">
+    <div className="flex flex-col space-between items-center justify-start gap-1 h-screen pt-12 ">
       <Image
-        src="/login-image.png"
-        width={960}
-        height={1080}
+        src="/logo.png"
+        width={240}
+        height={240}
         alt="Login image"
         quality={100}
       />
