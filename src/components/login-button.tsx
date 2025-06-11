@@ -1,9 +1,7 @@
 'use client'
-import { useAuth } from '@/contexts/login-context'
 import { signIn, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
+import { useEffect } from 'react'
 import { Button } from './ui/button'
 
 export default function LoginForm() {
@@ -23,19 +21,14 @@ export default function LoginForm() {
 
   async function handleSubmit(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault()
-    try {
-      signIn('google')
-      toast.success('Login realizado com sucesso')
-    } catch (error) {
-      toast.error('Erro ao fazer login')
-    }
+    await signIn('google', { redirect: false })
   }
 
   return (
     <Button
       type="button"
       className="mt-6 bg-emerald-600 hover:bg-emerald-700"
-      onClick={() => signIn('google')}
+      onClick={handleSubmit}
     >
       Entrar com o Google
     </Button>

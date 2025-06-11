@@ -1,4 +1,4 @@
-import LoginForm from '@/components/login-form'
+import LoginButton from '@/components/login-button'
 import Image from 'next/image'
 
 export default async function Login() {
@@ -13,7 +13,7 @@ export default async function Login() {
       />
       <div className="w-[400px] h-[400px] flex flex-col items-center justify-center space-y-2">
         <h1 className="text-2xl font-bold">Login</h1>
-        <LoginForm />
+        <LoginButton />
       </div>
     </div>
   )

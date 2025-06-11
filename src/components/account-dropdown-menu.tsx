@@ -15,6 +15,7 @@ import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { toast } from 'sonner'
 import { AlertDialogFooter, AlertDialogHeader } from './ui/alert-dialog'
 import { Button } from './ui/button'
 import {
@@ -43,6 +44,7 @@ export default function AccountDropDownMenu() {
 
   function handleLogout() {
     signOut()
+    toast.success('Logout efetuado com sucesso')
   }
 
   function handleAccountAction(action: string) {
