@@ -1,13 +1,13 @@
 'use client'
 import { SwitchCameraIcon } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { type ChangeEvent, useRef, useState } from 'react'
 
 export function AvatarForm() {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
-  const [avatarURL, setAvatarURL] = useState<string>(
-    'https://github.com/nathancamolez-dev.png'
-  )
+  const { data: session } = useSession()
+  const [avatarURL, setAvatarURL] = useState<string>(session?.user?.image ?? '')
   function handleAvatarChange() {
     fileInputRef.current?.click()
   }

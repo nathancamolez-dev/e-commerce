@@ -9,9 +9,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
-import { useAuth } from '@/contexts/login-context'
 import { useUserModal } from '@/contexts/user-modal-context'
 import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
+import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -29,10 +29,12 @@ import {
 export default function AccountDropDownMenu() {
   const { openModal } = useUserModal()
   const [isOpen, setIsOpen] = useState(false)
-  const { logout, user } = useAuth()
+  const { data: session } = useSession()
   const pathname = usePathname()
 
   const router = useRouter()
+  console.log(session?.user.id)
+  const user = session ? session.user : ''
 
   function handleLogin() {
     localStorage.setItem('redirect', pathname)
@@ -40,7 +42,7 @@ export default function AccountDropDownMenu() {
   }
 
   function handleLogout() {
-    logout()
+    signOut()
   }
 
   function handleAccountAction(action: string) {
@@ -58,7 +60,7 @@ export default function AccountDropDownMenu() {
               <>
                 <Image
                   className="h-6 w-6 rounded-full"
-                  src={user.avatar}
+                  src={user.image}
                   alt="Profile picture"
                   width={24}
                   height={24}

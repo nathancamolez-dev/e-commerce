@@ -1,6 +1,6 @@
 'use client'
+import { useSession } from 'next-auth/react'
 import { createContext, useContext, useState } from 'react'
-import { useAuth } from './login-context'
 
 interface CartItem {
   cartId: string
@@ -31,7 +31,8 @@ interface CartContextType {
 const CartContext = createContext({} as CartContextType)
 
 export function CartProviver({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth()
+  const { data: session } = useSession()
+  const user = session?.user
 
   const [cartItem, setCartItem] = useState<CartItem[]>([])
 

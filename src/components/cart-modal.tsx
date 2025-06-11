@@ -1,7 +1,6 @@
 'use client'
 
 import { useCart } from '@/contexts/cart-context'
-import { useAuth } from '@/contexts/login-context'
 import {
   BrushCleaning,
   Minus,
@@ -10,13 +9,15 @@ import {
   Trash2,
   X,
 } from 'lucide-react'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 
 export function CartModal() {
-  const { user } = useAuth()
+  const { data: session } = useSession()
+  const user = session?.user
   const [isOpen, setIsOpen] = useState(false)
   const modalRef = useRef<HTMLDivElement>(null)
   const router = useRouter()

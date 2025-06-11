@@ -28,4 +28,4 @@ TODO:
 
 - [ ] Use Database,and maybe change the context for the cart.
 - [ ] Make the checkout page
-- [ ] Make the add product page for manager
+- [ ] Make the add product page for manager(need solutions for image upload)

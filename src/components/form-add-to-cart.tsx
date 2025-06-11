@@ -1,7 +1,7 @@
 'use client'
 
 import { useCart } from '@/contexts/cart-context'
-import { useAuth } from '@/contexts/login-context'
+import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import ComboboxDemo from './combobox'
@@ -22,7 +22,8 @@ export function FormAddToCart({
   options,
 }: FormAddToCartProps) {
   const { addToCart } = useCart()
-  const { user } = useAuth()
+  const { data: session } = useSession()
+  const user = session?.user
   const [optionSelected, setOptionSelected] = useState('')
 
   function handleOptionSelect(option: string) {
