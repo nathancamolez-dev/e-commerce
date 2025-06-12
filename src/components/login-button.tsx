@@ -27,7 +27,7 @@ export default function LoginForm() {
   return (
     <Button
       type="button"
-      className="mt-6 bg-emerald-600 hover:bg-emerald-700"
+      className="mt-6 bg-emerald-600 hover:bg-emerald-700 hover:cursor-pointer"
       onClick={handleSubmit}
     >
       Entrar com o Google

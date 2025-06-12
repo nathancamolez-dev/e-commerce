@@ -34,7 +34,6 @@ export default function AccountDropDownMenu() {
   const pathname = usePathname()
 
   const router = useRouter()
-  console.log(session?.user)
   const user = session ? session.user : ''
 
   function handleLogin() {
