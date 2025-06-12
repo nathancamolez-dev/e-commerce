@@ -13,6 +13,7 @@ and inventory checks when needed.
 First, run the development server:
 
 ```bash
+npm i
 npm run dev
 # or
 yarn dev
@@ -21,6 +22,9 @@ pnpm dev
 # or
 bun dev
 ```
+
+Remember that using the NextAuth is necessary that you create an account on Google API to use the OAuth.
+Or any other provider that you use.
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

@@ -46,13 +46,13 @@ export default async function Search(props: SearchProps) {
               >
                 <Image
                   src={product.image}
-                  className="w-[460] h-[460] object-cover group-hover:scale-105  transition-transform duration-500"
+                  className="w-[460] h-[460] object-cover group-hover:scale-105  transition-transform duration-500 rounded-lg"
                   width={460}
                   height={460}
                   alt="Product"
                   quality={100}
                 />
-                <div className="absolute bottom-10 right-28 h-12 flex items-center gap-2 max-w-[280px] rounded-full border-2 border-zinc-500 bg-violet-200/60 p-1 pl-5">
+                <div className="absolute bottom-10 right-28 h-12 flex items-center gap-2 max-w-[320px] rounded-full border-2 border-zinc-500 bg-violet-200/60 p-1 pl-5">
                   <span className="text-sm truncate">{product.title}</span>
                   <span className="flex h-full items-center justify-center rounded-full bg-zinc-100 px-4 font-semibold">
                     {product.price.toLocaleString('pt-BR', {
