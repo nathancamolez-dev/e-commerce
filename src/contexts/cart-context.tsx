@@ -55,6 +55,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
       const productInCart = state.some(
         item => item.productId === productId && item.option === option
       )
+      const id = state[0]?.cartId ?? crypto.randomUUID().toString()
 
       if (productInCart) {
         return state.map(item => {
@@ -67,10 +68,11 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
           return item
         })
       }
+
       return [
         ...state,
         {
-          cartId: crypto.randomUUID().toString(),
+          cartId: id,
           userEmail: user.email,
           productId,
           name,

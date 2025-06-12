@@ -179,7 +179,7 @@ export function CartModal() {
                   <div className="flex-1 overflow-auto p-4">
                     {items.map(item => (
                       <div
-                        key={item.cartId}
+                        key={`item.productId + ${item.option}`}
                         className="flex gap-4 py-4 border-b last:border-0"
                       >
                         <div className="shrink-0">
