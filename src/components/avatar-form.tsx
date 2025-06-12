@@ -7,6 +7,7 @@ import { type ChangeEvent, useRef, useState } from 'react'
 export function AvatarForm() {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const { data: session } = useSession()
+
   const [avatarURL, setAvatarURL] = useState<string>(session?.user?.image ?? '')
   function handleAvatarChange() {
     fileInputRef.current?.click()

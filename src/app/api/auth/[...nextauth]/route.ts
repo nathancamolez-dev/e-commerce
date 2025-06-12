@@ -15,12 +15,13 @@ export const authOptions: NextAuthOptions = {
         },
       },
       profile(profile: GoogleProfile) {
+        const highResImage = profile.picture.replace(/=s\d+-c$/, '=s1080-c')
         return {
           id: profile.sub,
           name: profile.name,
           username: '',
           email: profile.email,
-          image: profile.picture,
+          image: highResImage,
         }
       },
     }),

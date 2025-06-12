@@ -9,7 +9,6 @@ export function SessionWatcher() {
 
   useEffect(() => {
     if (status === 'authenticated' && !hasShownToast.current) {
-      console.log('Funciona')
       toast.success('Login efetuado com sucesso')
       hasShownToast.current = true
     }
