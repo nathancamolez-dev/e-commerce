@@ -131,9 +131,9 @@ export function CartModal() {
         className="relative cursor-pointer"
         onClick={() => setIsOpen(true)}
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 hover:text-zinc-500">
           <ShoppingCart className="h-5 w-5" />
-          <span className="text-sm">Carrinho ({items.length})</span>
+          <span className="text-sm ">Carrinho ({items.length})</span>
         </div>
       </button>
 

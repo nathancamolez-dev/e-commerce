@@ -90,24 +90,16 @@ export default function AccountDropDownMenu() {
               Perfil
             </DropdownMenuItem>
 
-            <DropdownMenuItem
-              onClick={() => handleAccountAction('profile')}
-              className="cursor-pointer"
-            >
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
-            </DropdownMenuItem>
-
             <DropdownMenuSeparator />
 
             <AlertDialog>
               <AlertDialogTrigger>
                 <DropdownMenuItem
                   onSelect={e => e.preventDefault()}
-                  className="cursor-pointer text-red-600 focus:text-red-600"
+                  className="cursor-pointer text-red-600 focus:bg-white focus:text-red-900 "
                 >
                   <LogOut className="mr-2 h-4 w-4" />
-                  Log out
+                  Deslogar
                 </DropdownMenuItem>
               </AlertDialogTrigger>
               <AlertDialogContent>
