@@ -8,6 +8,9 @@ balancing client components for instant UI responsiveness (like adding/removing 
 updating quantities) and server components for efficient data fetching, pricing calculations,
 and inventory checks when needed.
 
+The authenticantion is provided by [NextAuth.js](https://next-auth.js.org/), using OAuth with Google account.
+The ideia is make the most easier way to create an account on the store.
+
 ## Getting Started
 
 First, run the development server:

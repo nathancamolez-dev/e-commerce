@@ -24,11 +24,11 @@
       "id": 3,
       "title": "Bacia redonda",
       "slug": "bacia-redonda",
-      "price": 39.9,
+      "price": 59.9,
       "image": "/bacia.png",
       "description": "Bacia redonda com 2 cores  diferentes, disponivel em diversos tamanhos, Ideal para guardar frutas.",
       "featured": true,
-      "options": ["A", "B", "C"]
+      "options": ["Pequena", "Media", "Grande"]
     },
     {
       "id": 4,
@@ -38,7 +38,7 @@
       "image": "/chaveiro-macrame.png",
       "description": "Chaveiro macrame com mosquetão dourado",
       "featured": false,
-      "options": ["A", "B", "C"]
+      "options": ["Rose", "Prata", "Bronze"]
     },
     {
       "id": 5,
@@ -48,7 +48,7 @@
       "image": "/vela-aromatica.png",
       "description": "Vela aromatica com cheiro de nostalgia-cereja e avelã",
       "featured": false,
-      "options": ["A", "B", "C"]
+      "options": ["Morango", "Uva", "Laranja"]
     },
     {
       "id": 6,

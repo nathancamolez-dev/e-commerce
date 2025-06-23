@@ -17,8 +17,8 @@ export default async function Login() {
       <div className="text-left max-w-md">
         <h1 className="text-4xl font-bold text-zinc-900 mb-4">Login</h1>
         <p className="text-zinc-600 text-lg mb-6">
-          Faça o login para continuar. Utilizando apenas seu email Google para
-          melhorar ainda mais sua experiência.
+          Faça o login para continuar. Utilizando sua conta Google para melhorar
+          ainda mais sua experiência.
         </p>
         <div className="text-right">
           <LoginButton />
