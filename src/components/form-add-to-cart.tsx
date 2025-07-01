@@ -10,14 +10,14 @@ export interface FormAddToCartProps {
   name: string
   productId: string
   price: number
-  image: string
+  image_url: string
   options: string[]
 }
 
 export function FormAddToCart({
   productId,
   name,
-  image,
+  image_url,
   price,
   options,
 }: FormAddToCartProps) {
@@ -35,7 +35,7 @@ export function FormAddToCart({
       toast.error('Por favor faça login para usar o carrinho')
       return
     }
-    addToCart(productId, name, image, price, optionSelected)
+    addToCart(productId, name, image_url, price, optionSelected)
     toast.success('Item adicionado ao carrinho')
   }
 

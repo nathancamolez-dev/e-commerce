@@ -12,14 +12,14 @@ interface ProductProps {
 }
 
 async function getProductDetails(slug: string): Promise<Product> {
-  const response = await api(`/products/${slug}`, {
+  const response = await api(`/product/${slug}`, {
     next: {
       revalidate: 60 * 60, // 1 hour
     },
   })
 
   const product = await response.json()
-
+  console.log(product)
   return product
 }
 
@@ -52,7 +52,7 @@ export default async function ProductPage(props: ProductProps) {
       <div className="col-span-2 overflow-hidden">
         <Image
           className="rounded-lg"
-          src={product.image}
+          src={product.image_url}
           alt=""
           width={750}
           height={700}
@@ -85,7 +85,7 @@ export default async function ProductPage(props: ProductProps) {
         <FormAddToCart
           productId={product.id}
           name={product.title}
-          image={product.image}
+          image_url={product.image_url}
           price={product.price}
           options={product.options}
         />

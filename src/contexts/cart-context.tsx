@@ -18,7 +18,7 @@ interface CartContextType {
   subTotal: number
   addToCart: (
     name: string,
-    image: string,
+    image_url: string,
     productId: string,
     price: number,
     option: string,
@@ -43,7 +43,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
   function addToCart(
     productId: string,
     name: string,
-    image: string,
+    image_url: string,
     price: number,
     option: string,
     quantityMod?: number
@@ -76,7 +76,7 @@ export function CartProviver({ children }: { children: React.ReactNode }) {
           userEmail: user.email,
           productId,
           name,
-          image,
+          image: image_url,
           price,
           option,
           quantity: quantityMod ? quantityMod : 1,
