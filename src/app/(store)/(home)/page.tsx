@@ -29,7 +29,7 @@ export default async function Home() {
         className="relative group col-span-5 row-span-6 rounded-lg bg-zinc-50 overflow-hidden flex  justify-center items-end"
       >
         <Image
-          src={highlightedProduct.image}
+          src={highlightedProduct.image_url}
           className="group-hover:scale-105 transition-transform duration-500"
           width={920}
           height={920}
@@ -55,7 +55,7 @@ export default async function Home() {
             className="group relative col-span-3 row-span-3 rounded-lg bg-zinc-50 overflow-hidden flex  justify-center items-end"
           >
             <Image
-              src={product.image}
+              src={product.image_url}
               className="group-hover:scale-105 transition-transform duration-500"
               width={920}
               height={920}
