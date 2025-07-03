@@ -9,6 +9,17 @@ interface SearchProps {
 }
 
 async function searchProducts(query: string): Promise<Product[]> {
+  if (!query) {
+    const response = await api('/products', {
+      next: {
+        revalidate: 60 * 60, // 1 hour
+      },
+    })
+
+    const products = await response.json()
+    return products
+  }
+
   const response = await api(`/products/search?q=${query}`, {
     next: {
       revalidate: 60 * 60, // 1 hour
@@ -45,7 +56,7 @@ export default async function Search(props: SearchProps) {
                 className="group relative  rounded-lg bg-zinc-50 overflow-hidden flex  justify-center items-end"
               >
                 <Image
-                  src={product.image}
+                  src={product.image_url}
                   className="w-[460] h-[460] object-cover group-hover:scale-105  transition-transform duration-500 rounded-lg"
                   width={460}
                   height={460}
