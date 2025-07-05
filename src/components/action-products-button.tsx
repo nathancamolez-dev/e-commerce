@@ -1,5 +1,5 @@
 'use client'
-import { Star } from 'lucide-react'
+import { Star, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 import {
@@ -50,6 +50,16 @@ export function ActionButtons({
       toast.success(
         `Produto ${featured ? 'Destacado' : 'Removido do destaque'} com sucesso!`
       )
+      router.refresh()
+    } catch (error) {
+      toast.error('Ocorreu um erro. Tente novamente.')
+    }
+  }
+
+  async function handleDelete() {
+    try {
+      await fetch('http://localhost:3333/product/${id}', { method: 'DELETE' })
+      toast.success('Produto deletado com sucesso!')
       router.refresh()
     } catch (error) {
       toast.error('Ocorreu um erro. Tente novamente.')
@@ -162,6 +172,38 @@ export function ActionButtons({
               onClick={handleHighlightToggle}
             >
               {featured === true ? 'Tirar dos destaques' : 'Destacar'}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            className="bg-rose-500 hover:bg-rose-400  hover:cursor-pointer"
+            variant="destructive"
+            size="sm"
+          >
+            <Trash />
+            Deletar
+          </Button>
+        </AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Esta ação ira deletar permanentemente o produto
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="hover:cursor-pointer">
+              Cancelar
+            </AlertDialogCancel>
+            <AlertDialogAction
+              className="bg-rose-400 hover:bg-rose-500 hover:cursor-pointer"
+              onClick={handleDelete}
+            >
+              Deletar
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

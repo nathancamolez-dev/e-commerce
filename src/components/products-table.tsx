@@ -1,6 +1,6 @@
 import { api } from '@/data/api'
 import type { Product } from '@/data/types/product'
-import { ActionButtons } from './pause-button'
+import { ActionButtons } from './action-products-button'
 
 async function getProducts(): Promise<Product[]> {
   const response = await api('/products')
