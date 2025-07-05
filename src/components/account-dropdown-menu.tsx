@@ -10,7 +10,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { useUserModal } from '@/contexts/user-modal-context'
-import { ChevronDown, LogOut, Settings, User } from 'lucide-react'
+import { ChevronDown, LogOut, User } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
@@ -42,7 +42,7 @@ export default function AccountDropDownMenu() {
   }
 
   function handleLogout() {
-    signOut()
+    signOut().then(() => router.push('/'))
     toast.success('Logout efetuado com sucesso')
   }
 

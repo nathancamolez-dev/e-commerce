@@ -5,6 +5,7 @@ import SessionProvider from '@/components/SessionProvider'
 import { getServerSession } from 'next-auth'
 import { Toaster } from 'sonner'
 import { authOptions } from './api/auth/[...nextauth]/route'
+import { QueryProvider } from '@/components/query-provider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,7 +34,7 @@ export default async function RootLayout({
     <html className={`${geistSans.variable} ${geistMono.variable}`} lang="pt">
       <body className={'bg-zinc-50 text-zinc-900 antialiased'}>
         <SessionProvider session={session}>
-          {children}
+          <QueryProvider>{children}</QueryProvider>
           <Toaster richColors />
         </SessionProvider>
       </body>

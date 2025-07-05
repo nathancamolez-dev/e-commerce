@@ -7,4 +7,6 @@ export interface Product {
   description: string
   featured: boolean
   options: string[]
+  created_at: Date
+  paused: boolean
 }

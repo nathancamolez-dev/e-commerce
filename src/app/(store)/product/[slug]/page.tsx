@@ -19,7 +19,6 @@ async function getProductDetails(slug: string): Promise<Product> {
   })
 
   const product = await response.json()
-  console.log(product)
   return product
 }
 

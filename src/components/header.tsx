@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { SessionWatcher } from './SessionWatcher'
 import AccountDropDownMenu from './account-dropdown-menu'
 import { CartModal } from './cart-modal'
+import { Manager } from './manager'
 import { SearchForm } from './search-form'
 
 export function Header() {
@@ -26,6 +27,7 @@ export function Header() {
             <ShoppingBag />
             Produtos{' '}
           </Link>
+          <Manager />
         </div>
         <div className=" flex items-center gap-4">
           <CartModal />
