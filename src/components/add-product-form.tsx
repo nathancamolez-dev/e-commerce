@@ -2,21 +2,26 @@
 
 import { Button } from '@/components/ui/button'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { X } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { type SubmitHandler, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const addProductFormSchema = z.object({
-  name: z.string().min(3, {
+  title: z.string().min(3, {
     message: 'O nome do produto precisa ter no mínimo 3 caracteres',
   }),
   price: z.coerce
     .number()
     .min(0.01, { message: 'O preço precisa ser maior que R$ 0,01' }),
   description: z.string().optional(),
+  featured: z.boolean(),
   image: z.string().min(1, {
     message: 'A imagem é obrigatória',
+  }),
+  options: z.array(z.string()).min(1, {
+    message: 'É obrigatorio o produto oferecer pelo menos uma opção',
   }),
 })
 
@@ -24,6 +29,7 @@ type AddProductFormSchema = z.infer<typeof addProductFormSchema>
 
 export function AddProductForm() {
   const [preview, setPreview] = useState<string | null>(null)
+  const [options, setOptions] = useState<string[]>([])
   const fileInputRef = useRef<HTMLInputElement>(null)
   const {
     register,
@@ -32,16 +38,30 @@ export function AddProductForm() {
     formState: { errors },
   } = useForm<AddProductFormSchema>({
     resolver: zodResolver(addProductFormSchema),
+    defaultValues: {
+      title: '',
+      price: 0,
+      description: '',
+      featured: false,
+      image: '',
+      options: [],
+    },
   })
 
   useEffect(() => {
     register('image')
+    register('options')
   }, [register])
 
-  async function handleAddProduct(data: AddProductFormSchema) {
+  const handleAddProduct: SubmitHandler<AddProductFormSchema> = async data => {
+    await fetch('http://localhost:3333/product', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
     console.log(data)
-    // Aqui você faria o upload da imagem para o seu backend
-    // e obteria a URL final para salvar no banco de dados.
   }
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -55,6 +75,26 @@ export function AddProductForm() {
     setValue('image', previewURL, { shouldValidate: true })
   }
 
+  function handleAddOption(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      event.preventDefault()
+      const optionInput = event.currentTarget
+      const newOption = optionInput.value.trim()
+      if (newOption && !options.includes(newOption)) {
+        const newOptions = [...options, newOption]
+        setOptions(newOptions)
+        setValue('options', newOptions, { shouldValidate: true })
+        optionInput.value = ''
+      }
+    }
+  }
+
+  function handleRemoveOption(indexToRemove: number) {
+    const newOptions = options.filter((_, index) => index !== indexToRemove)
+    setOptions(newOptions)
+    setValue('options', newOptions, { shouldValidate: true })
+  }
+
   return (
     <div className="flex flex-row gap-20 items-center">
       <Image
@@ -62,24 +102,24 @@ export function AddProductForm() {
         alt="Product image"
         width={400}
         height={400}
-        className="w-[400px] h-[400px] resize"
+        className="w-[400px] h-[400px] object-cover"
       />
       <form
         onSubmit={handleSubmit(handleAddProduct)}
-        className="relative flex flex-col  gap-4 w-[480px]"
+        className="relative flex flex-col gap-4 w-[480px]"
       >
         <div className="justify-center">
           <div className="flex flex-col gap-2">
-            <label htmlFor="name">Nome do produto</label>
+            <label htmlFor="title">Nome do produto</label>
             <input
-              id="name"
+              id="title"
               type="text"
               className="border border-zinc-300 rounded-md p-2"
-              {...register('name')}
+              {...register('title')}
             />
-            {errors.name && (
+            {errors.title && (
               <span className="text-red-500 text-sm">
-                {errors.name.message}
+                {errors.title.message}
               </span>
             )}
           </div>
@@ -107,15 +147,16 @@ export function AddProductForm() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="image">Imagem do produto</label>
-            <input
-              id="image"
-              type="file"
-              className="hidden"
-              ref={fileInputRef}
-              onChange={handleFileChange}
-              accept="image/*"
-            />
+            <label>
+              Imagem do produto
+              <input
+                type="file"
+                className="hidden"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                accept="image/*"
+              />
+            </label>
             <Button type="button" onClick={() => fileInputRef.current?.click()}>
               Procurar imagem
             </Button>
@@ -125,8 +166,35 @@ export function AddProductForm() {
               </span>
             )}
           </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="options">Opções do produto</label>
+            <input
+              id="options"
+              type="text"
+              className="border border-zinc-300 rounded-md p-2"
+              onKeyDown={handleAddOption}
+              placeholder="Digite uma opção e pressione Enter"
+            />
+            <div className="flex flex-wrap gap-2 mt-2">
+              {options.map((option, index) => (
+                <div
+                  key={option}
+                  className="flex items-center gap-2 bg-zinc-200 rounded-full px-3 py-1"
+                >
+                  <span>{option}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveOption(index)}
+                    className="text-zinc-500 hover:text-zinc-800"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
-        <div className="flex justify-end items-center">
+        <div className="flex justify-end items-center mt-4">
           <Button type="submit">Adicionar produto</Button>
         </div>
       </form>
