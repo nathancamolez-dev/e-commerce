@@ -1,7 +1,10 @@
-import { env } from '@/env'
-import NextAuth, { type NextAuthOptions } from 'next-auth'
-import GoogleProvider from 'next-auth/providers/google'
+import type { NextAuthOptions } from 'next-auth'
+import NextAuth from 'next-auth/next'
 import type { GoogleProfile } from 'next-auth/providers/google'
+import GoogleProvider from 'next-auth/providers/google'
+import { env } from '@/env'
+import { PrismaAdapter } from '@/lib/auth/prisma-adapter'
+import { prisma } from '@/lib/prisma'
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -14,34 +17,36 @@ export const authOptions: NextAuthOptions = {
             'https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/userinfo.profile',
         },
       },
-      profile(profile: GoogleProfile) {
+      async profile(profile: GoogleProfile) {
         const highResImage = profile.picture.replace(/=s\d+-c$/, '=s1080-c')
+        const user = await prisma.user.findFirst({
+          where: { email: profile.email },
+        })
         return {
           id: profile.sub,
           name: profile.name,
-          username: '',
           email: profile.email,
           image: highResImage,
+          role: user?.role ?? 'USER',
         }
       },
     }),
   ],
-  secret: env.NEXTAUTH_SECRET,
-  debug: true,
   callbacks: {
-    async jwt({ token, profile, user }) {
-      if (user && profile) {
-        token.id = profile.sub
-        token.image = user.image ?? ''
+    async jwt({ token, user }) {
+      if (user?.email) {
+        const user = await prisma.user.findFirst({
+          where: { email: user.email },
+        })
+
+        token.role = user?.role ?? 'USER'
       }
       return token
     },
-    async session({ session, token }) {
-      session.user.id = token.id as string
-      session.user.image = token.image as string
-      return session
-    },
   },
+  adapter: PrismaAdapter(prisma),
+  secret: env.NEXTAUTH_SECRET,
+  debug: true,
 }
 
 export const handler = NextAuth(authOptions)

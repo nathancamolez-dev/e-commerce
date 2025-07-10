@@ -1,8 +1,5 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "organizeImports": {
-    "enabled": true
-  },
   "formatter": {
     "indentStyle": "space",
     "indentWidth": 2,
@@ -20,10 +17,19 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "noSvgWithoutTitle": "off"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "info"
+      },
+      "correctness": {
+        "noUnusedVariables": "off"
+      }
     }
   },
   "files": {
-    "ignore": ["node_modules"]
+    "includes": ["**", "!node_modules/**", "!dist/**", "!build/**"]
   }
 }

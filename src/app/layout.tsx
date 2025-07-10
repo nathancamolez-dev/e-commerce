@@ -1,11 +1,11 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import SessionProvider from '@/components/SessionProvider'
-import { getServerSession } from 'next-auth'
+import { getServerSession } from 'next-auth/next'
 import { Toaster } from 'sonner'
-import { authOptions } from './api/auth/[...nextauth]/route'
 import { QueryProvider } from '@/components/query-provider'
+import SessionProvider from '@/components/SessionProvider'
+import { authOptions } from './api/auth/[...nextauth]/route'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

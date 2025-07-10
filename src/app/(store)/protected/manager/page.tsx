@@ -1,10 +1,10 @@
+import type { Metadata } from 'next'
+import { redirect } from 'next/navigation'
+import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import { AddProductForm } from '@/components/add-product-form'
 import { ProductsTable } from '@/components/products-table'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { Metadata } from 'next'
-import { getServerSession } from 'next-auth'
-import { redirect } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: 'Adicionar novo produto',
@@ -13,7 +13,8 @@ export const metadata: Metadata = {
 export default async function ManagerPage() {
   const session = await getServerSession(authOptions)
   const user = session?.user
-  if (!user) {
+
+  if (!user || user.role !== 'ADMIN') {
     redirect('/')
   }
 

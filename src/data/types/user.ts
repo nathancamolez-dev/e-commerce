@@ -5,4 +5,5 @@ export interface User {
   email: string
   address: string
   avatar: string
+  role: string
 }
