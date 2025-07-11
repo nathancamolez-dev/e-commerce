@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 export function Manager() {
   const { data: session } = useSession()
   const user = session?.user
+
   return (
     <>
       {user && user.role === 'ADMIN' && (

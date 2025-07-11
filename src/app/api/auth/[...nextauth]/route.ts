@@ -19,29 +19,20 @@ export const authOptions: NextAuthOptions = {
       },
       async profile(profile: GoogleProfile) {
         const highResImage = profile.picture.replace(/=s\d+-c$/, '=s1080-c')
-        const user = await prisma.user.findFirst({
-          where: { email: profile.email },
-        })
         return {
           id: profile.sub,
           name: profile.name,
           email: profile.email,
           image: highResImage,
-          role: user?.role ?? 'USER',
+          role: 'USER',
         }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user }) {
-      if (user?.email) {
-        const user = await prisma.user.findFirst({
-          where: { email: user.email },
-        })
-
-        token.role = user?.role ?? 'USER'
-      }
-      return token
+    async session({ session, user }) {
+      session.user.role = user.role
+      return session
     },
   },
   adapter: PrismaAdapter(prisma),
