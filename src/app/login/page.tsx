@@ -13,7 +13,6 @@ export default async function Login() {
           className="w-auto h-auto"
         />
       </div>
-
       <div className="text-left max-w-md">
         <h1 className="text-4xl font-bold text-zinc-900 mb-4">Login</h1>
         <p className="text-zinc-600 text-lg mb-6">
