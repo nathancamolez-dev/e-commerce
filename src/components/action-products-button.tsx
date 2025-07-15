@@ -72,7 +72,7 @@ export function ActionButtons({
 
       toast.success(
         `Produto ${
-          featured ? 'Destacado' : 'Removido do destaque'
+          featured ? 'Removido do destaque' : 'Destacado'
         } com sucesso!`
       )
       router.refresh()
