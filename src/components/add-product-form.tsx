@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
-import { getToken } from 'next-auth/jwt'
 import { getSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
@@ -47,7 +46,6 @@ export function AddProductForm() {
     if (user && user.role !== 'ADMIN') {
       redirect('/')
     }
-    console.log(session?.jwt)
     const jsonData = JSON.stringify({
       title: data.title,
       price: data.price,
@@ -59,6 +57,7 @@ export function AddProductForm() {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
+        authorization: `Bearer ${session?.jwt}`,
       },
       body: jsonData,
     })
@@ -72,6 +71,9 @@ export function AddProductForm() {
         `http://localhost:3333/product/${productId.id}/image`,
         {
           method: 'PATCH',
+          headers: {
+            authorization: `Bearer ${session?.jwt}`,
+          },
           body: formData,
         }
       )

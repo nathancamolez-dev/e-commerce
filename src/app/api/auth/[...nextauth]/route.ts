@@ -32,7 +32,12 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, user }) {
+      const token = signJwtFromToken({
+        id: user.id,
+        role: user.role as 'ADMIN' | 'USER',
+      })
       session.user.role = user.role as 'ADMIN' | 'USER'
+      session.jwt = token
 
       return session
     },
