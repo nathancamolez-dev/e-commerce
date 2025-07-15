@@ -22,6 +22,7 @@ export function AddProductForm() {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<AddProductFormSchema>({
     resolver: zodResolver(addProductFormSchema),
@@ -46,6 +47,7 @@ export function AddProductForm() {
     if (user && user.role !== 'ADMIN') {
       redirect('/')
     }
+
     const jsonData = JSON.stringify({
       title: data.title,
       price: data.price,
@@ -80,12 +82,17 @@ export function AddProductForm() {
 
       if (!imageResponse.ok) {
         toast.error('Error interno em fazer o upload da imagem.')
+        return
       }
+      toast.success('Produto criado com sucesso!')
+      reset()
+      return
     }
     toast.error('Erro para criar o produto.')
     if (productResponse.status === 401) {
       toast.error('Não autorizado.')
     }
+    return
   }
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
