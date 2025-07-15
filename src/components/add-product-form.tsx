@@ -3,30 +3,13 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
 import Image from 'next/image'
+import { redirect } from 'next/navigation'
+import { getSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
-import { z } from 'zod'
+import type { z } from 'zod'
 import { Button } from '@/components/ui/button'
-
-const addProductFormSchema = z.object({
-  title: z.string().min(3, {
-    message: 'O nome do produto precisa ter no mínimo 3 caracteres',
-  }),
-  price: z.coerce
-    .number()
-    .min(0.01, { message: 'O preço precisa ser maior que R$ 0,01' }),
-  description: z.string().optional(),
-  featured: z.boolean(),
-  image: z
-    .instanceof(File)
-    .refine(file => file.type.startsWith('image/'), {
-      message: 'Envie uma imagem valida',
-    })
-    .nullable(),
-  options: z.array(z.string()).min(1, {
-    message: 'É obrigatorio o produto oferecer pelo menos uma opção',
-  }),
-})
+import { addProductFormSchema } from '@/data/types/add-product-request'
 
 type AddProductFormSchema = z.infer<typeof addProductFormSchema>
 
@@ -57,6 +40,11 @@ export function AddProductForm() {
   }, [register])
 
   const handleAddProduct: SubmitHandler<AddProductFormSchema> = async data => {
+    const session = await getSession()
+    const user = session?.user
+    if (user && user.role !== 'ADMIN') {
+      redirect('/')
+    }
     const jsonData = JSON.stringify({
       title: data.title,
       price: data.price,
