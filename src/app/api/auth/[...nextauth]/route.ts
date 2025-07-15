@@ -4,6 +4,7 @@ import type { GoogleProfile } from 'next-auth/providers/google'
 import GoogleProvider from 'next-auth/providers/google'
 import { env } from '@/env'
 import { PrismaAdapter } from '@/lib/auth/prisma-adapter'
+import { signJwtFromToken } from '@/lib/jwt'
 import { prisma } from '@/lib/prisma'
 
 export const authOptions: NextAuthOptions = {
@@ -31,7 +32,8 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ session, user }) {
-      session.user.role = user.role
+      session.user.role = user.role as 'ADMIN' | 'USER'
+
       return session
     },
   },

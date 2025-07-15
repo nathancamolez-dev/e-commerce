@@ -4,9 +4,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { X } from 'lucide-react'
 import Image from 'next/image'
 import { redirect } from 'next/navigation'
+import { getToken } from 'next-auth/jwt'
 import { getSession } from 'next-auth/react'
 import { useEffect, useRef, useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import type { z } from 'zod'
 import { Button } from '@/components/ui/button'
 import { addProductFormSchema } from '@/data/types/add-product-request'
@@ -45,6 +47,7 @@ export function AddProductForm() {
     if (user && user.role !== 'ADMIN') {
       redirect('/')
     }
+    console.log(session?.jwt)
     const jsonData = JSON.stringify({
       title: data.title,
       price: data.price,
@@ -60,26 +63,26 @@ export function AddProductForm() {
       body: jsonData,
     })
 
-    if (!productResponse.ok) {
-      console.error('error creating product')
-    }
+    if (productResponse.ok) {
+      const productId = await productResponse.json()
+      const formData = new FormData()
+      formData.append('image', data.image as File)
 
-    const productId = await productResponse.json()
-    const formData = new FormData()
-    formData.append('image', data.image as File)
-    console.log(data.image)
-    console.log(productId)
+      const imageResponse = await fetch(
+        `http://localhost:3333/product/${productId.id}/image`,
+        {
+          method: 'PATCH',
+          body: formData,
+        }
+      )
 
-    const imageResponse = await fetch(
-      `http://localhost:3333/product/${productId.id}/image`,
-      {
-        method: 'PATCH',
-        body: formData,
+      if (!imageResponse.ok) {
+        toast.error('Error interno em fazer o upload da imagem.')
       }
-    )
-
-    if (!imageResponse.ok) {
-      console.error('error creating image')
+    }
+    toast.error('Erro para criar o produto.')
+    if (productResponse.status === 401) {
+      toast.error('Não autorizado.')
     }
   }
 
