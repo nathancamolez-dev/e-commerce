@@ -1,6 +1,7 @@
 'use client'
 import { Star, Trash } from 'lucide-react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 import { toast } from 'sonner'
 import {
   AlertDialog,
@@ -29,14 +30,26 @@ export function ActionButtons({
   featured_count,
 }: PauseButtonProps) {
   const router = useRouter()
+  const session = useSession()
 
   async function handlePauseToggle() {
     try {
-      await fetch(`http://localhost:3333/product/${id}/pause`, {
-        method: 'PUT',
-      })
+      const response = await fetch(
+        `http://localhost:3333/product/${id}/pause`,
+        {
+          headers: {
+            authorization: `Bearer ${session.data?.jwt}`,
+          },
+          method: 'PUT',
+        }
+      )
+      if (response.status === 401) {
+        toast.error('Não autorizado')
+        return
+      }
       toast.success(`Produto ${paused ? 'despausado' : 'pausado'} com sucesso!`)
       router.refresh()
+      await fetch('/api/revalidate/products', { method: 'POST' })
     } catch (error) {
       toast.error('Ocorreu um erro. Tente novamente.')
     }
@@ -44,15 +57,26 @@ export function ActionButtons({
 
   async function handleHighlightToggle() {
     try {
-      await fetch(`http://localhost:3333/product/${id}/highlight`, {
-        method: 'PUT',
-      })
+      const response = await fetch(
+        `http://localhost:3333/product/${id}/highlight`,
+        {
+          headers: {
+            authorization: `Bearer ${session.data?.jwt}`,
+          },
+          method: 'PUT',
+        }
+      )
+      if (response.status === 401) {
+        toast.error('Não autorizado')
+      }
+
       toast.success(
         `Produto ${
           featured ? 'Destacado' : 'Removido do destaque'
         } com sucesso!`
       )
       router.refresh()
+      await fetch('/api/revalidate/products', { method: 'POST' })
     } catch (error) {
       toast.error('Ocorreu um erro. Tente novamente.')
     }
@@ -60,9 +84,20 @@ export function ActionButtons({
 
   async function handleDelete() {
     try {
-      await fetch(`http://localhost:3333/product/${id}`, { method: 'DELETE' })
+      const response = await fetch(`http://localhost:3333/product/${id}`, {
+        headers: {
+          authorization: `Bearer ${session.data?.jwt}`,
+        },
+        method: 'DELETE',
+      })
+
+      if (response.status === 401) {
+        toast.error('Não autorizado')
+      }
+
       toast.success('Produto deletado com sucesso!')
       router.refresh()
+      await fetch('/api/revalidate/products', { method: 'POST' })
     } catch (error) {
       toast.error('Ocorreu um erro. Tente novamente.')
     }
@@ -105,7 +140,7 @@ export function ActionButtons({
       <AlertDialog>
         <AlertDialogTrigger asChild>
           <Button
-            className="bg-emerald-300 hover:bg-emerald-400 hover:cursor-pointer disabled:hidden"
+            className="bg-emerald-400 hover:bg-emerald-500 hover:cursor-pointer disabled:hidden"
             variant="destructive"
             size="sm"
             disabled={paused === false}

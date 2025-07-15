@@ -15,6 +15,7 @@ async function getProductDetails(slug: string): Promise<Product> {
   const response = await api(`/product/${slug}`, {
     next: {
       revalidate: 60 * 60, // 1 hour
+      tags: ['products'],
     },
   })
 
