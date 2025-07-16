@@ -82,13 +82,23 @@ export default async function ProductPage(props: ProductProps) {
             s/ juros.
           </span>
         </div>
-        <FormAddToCart
-          productId={product.id}
-          name={product.title}
-          image_url={product.image_url}
-          price={product.price}
-          options={product.options}
-        />
+        {product.paused ? (
+          <button
+            type="button"
+            className="mt-8 flex h-12 items-center justify-center rounded-full    disabled:bg-zinc-400 disabled:cursor-not-allowed"
+            disabled={product.paused}
+          >
+            Indisponível
+          </button>
+        ) : (
+          <FormAddToCart
+            productId={product.id}
+            name={product.title}
+            image_url={product.image_url}
+            price={product.price}
+            options={product.options}
+          />
+        )}
       </div>
     </div>
   )
