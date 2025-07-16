@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noNonNullAssertion: Always will be non-null */
 // lib/auth/prisma-adapter.ts
 
 import type { PrismaClient, Role } from '@prisma/client'

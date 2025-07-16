@@ -66,9 +66,13 @@ export default async function Search(props: SearchProps) {
                   alt="Product"
                   quality={100}
                 />
-                <div className="absolute bottom-10 right-28 h-12 flex items-center gap-2 max-w-[320px] rounded-full border-2 border-zinc-500 bg-violet-200/60 p-1 pl-5">
+                <div
+                  className={`${product.paused ? 'bg-zinc-700 text-zinc-50' : ''} absolute bottom-10 right-28 h-12 flex items-center gap-2 max-w-[320px] rounded-full border-2 border-zinc-500 bg-violet-200/60 p-1 pl-5`}
+                >
                   <span className="text-sm truncate">{product.title}</span>
-                  <span className="flex h-full items-center justify-center rounded-full bg-zinc-100 px-4 font-semibold">
+                  <span
+                    className={`${product.paused ? 'text-zinc-700' : ''} flex h-full items-center justify-center rounded-full bg-zinc-100 px-4 font-semibold`}
+                  >
                     {!product.paused
                       ? product.price.toLocaleString('pt-BR', {
                           style: 'currency',
