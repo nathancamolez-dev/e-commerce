@@ -34,15 +34,12 @@ export function ActionButtons({
 
   async function handlePauseToggle() {
     try {
-      const response = await fetch(
-        `http://localhost:3333/product/${id}/pause`,
-        {
-          headers: {
-            authorization: `Bearer ${session.data?.jwt}`,
-          },
-          method: 'PUT',
-        }
-      )
+      const response = await fetch(`/api/proxy/product/${id}/pause`, {
+        headers: {
+          authorization: `Bearer ${session.data?.jwt}`,
+        },
+        method: 'PUT',
+      })
       if (response.status === 401) {
         toast.error('Não autorizado')
         return
@@ -57,15 +54,12 @@ export function ActionButtons({
 
   async function handleHighlightToggle() {
     try {
-      const response = await fetch(
-        `http://localhost:3333/product/${id}/highlight`,
-        {
-          headers: {
-            authorization: `Bearer ${session.data?.jwt}`,
-          },
-          method: 'PUT',
-        }
-      )
+      const response = await fetch(`/api/proxy/product/${id}/highlight`, {
+        headers: {
+          authorization: `Bearer ${session.data?.jwt}`,
+        },
+        method: 'PUT',
+      })
       if (response.status === 401) {
         toast.error('Não autorizado')
       }
@@ -84,7 +78,7 @@ export function ActionButtons({
 
   async function handleDelete() {
     try {
-      const response = await fetch(`http://localhost:3333/product/${id}`, {
+      const response = await fetch(`/api/proxy/product/${id}/delete`, {
         headers: {
           authorization: `Bearer ${session.data?.jwt}`,
         },
