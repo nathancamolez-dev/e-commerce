@@ -9,6 +9,17 @@ import { useEffect, useRef, useState } from 'react'
 import { type SubmitHandler, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import type { z } from 'zod'
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { addProductFormSchema } from '@/data/types/add-product-request'
 
@@ -17,11 +28,13 @@ type AddProductFormSchema = z.infer<typeof addProductFormSchema>
 export function AddProductForm() {
   const [preview, setPreview] = useState<string | null>(null)
   const [options, setOptions] = useState<string[]>([])
+  const [isConfirmOpen, setIsConfirmOpen] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     reset,
     formState: { errors },
   } = useForm<AddProductFormSchema>({
@@ -55,7 +68,7 @@ export function AddProductForm() {
       featured: data.featured,
       options: data.options,
     })
-    const productResponse = await fetch('http://localhost:3333/product', {
+    const productResponse = await fetch('/api/proxy/product', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -70,7 +83,7 @@ export function AddProductForm() {
       formData.append('image', data.image as File)
 
       const imageResponse = await fetch(
-        `http://localhost:3333/product/${productId.id}/image`,
+        `/api/proxy/product/${productId.id}/image`,
         {
           method: 'PATCH',
           headers: {
@@ -85,7 +98,16 @@ export function AddProductForm() {
         return
       }
       toast.success('Produto criado com sucesso!')
-      reset()
+      reset({
+        price: 0,
+        description: '',
+        featured: false,
+        image: null,
+        options: [],
+        title: '',
+      })
+      setOptions([])
+      await fetch('/api/revalidate/products', { method: 'POST' })
       return
     }
     toast.error('Erro para criar o produto.')
@@ -93,6 +115,11 @@ export function AddProductForm() {
       toast.error('Não autorizado.')
     }
     return
+  }
+
+  const handleConfirmSubmit = () => {
+    setIsConfirmOpen(false)
+    handleSubmit(handleAddProduct)()
   }
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
@@ -136,7 +163,10 @@ export function AddProductForm() {
         className="w-[400px] h-[400px] object-cover"
       />
       <form
-        onSubmit={handleSubmit(handleAddProduct)}
+        onSubmit={e => {
+          e.preventDefault()
+          setIsConfirmOpen(true)
+        }}
         className="relative flex flex-col gap-4 w-[480px]"
       >
         <div className="justify-center">
@@ -211,31 +241,55 @@ export function AddProductForm() {
               placeholder="Digite uma opção e pressione Enter"
             />
             <div className="flex flex-wrap gap-2 mt-2">
-              {options.map((option, index) => (
-                <div
-                  key={option}
-                  className="flex items-center gap-2 bg-zinc-200 rounded-full px-3 py-1"
-                >
-                  <span>{option}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleRemoveOption(index)}
-                    className="text-zinc-500 hover:text-zinc-800"
+              {options.length > 0 &&
+                options.map((option, index) => (
+                  <div
+                    key={option}
+                    className="flex items-center gap-2 bg-zinc-200 rounded-full px-3 py-1"
                   >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
-              ))}
+                    <span>{option}</span>
+                    <button
+                      type="button"
+                      onClick={() => handleRemoveOption(index)}
+                      className="text-zinc-500 hover:text-zinc-800"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
         <div className="flex justify-end items-center mt-4">
-          <Button
-            type="submit"
-            className="bg-emerald-500 hover:bg-emerald-600 hover:cursor-pointer"
-          >
-            Adicionar produto
-          </Button>
+          <AlertDialog open={isConfirmOpen} onOpenChange={setIsConfirmOpen}>
+            <AlertDialogTrigger asChild>
+              <Button
+                type="button"
+                className="bg-emerald-500 hover:bg-emerald-600 hover:cursor-pointer"
+                onClick={() => setIsConfirmOpen(true)}
+              >
+                Adicionar produto
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Confirmar Adição do Produto</AlertDialogTitle>
+                <AlertDialogDescription>
+                  <span className="flex flex-col gap-2">
+                    <strong>Nome:</strong> {getValues('title')}
+                    <strong>Descrição:</strong> {getValues('description')}
+                    <strong>Opções:</strong> {options.join(' | ')}
+                  </span>
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                <AlertDialogAction onClick={handleConfirmSubmit}>
+                  Confirmar
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </div>
       </form>
     </div>

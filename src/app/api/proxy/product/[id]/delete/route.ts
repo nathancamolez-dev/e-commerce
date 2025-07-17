@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server'
 
-export async function POST(
+export async function DELETE(
   req: NextRequest,
   { params }: { params: { id: string } }
 ) {
