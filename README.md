@@ -9,6 +9,10 @@ updating quantities) and server components for efficient data fetching, pricing 
 and inventory checks when needed.
 
 The authenticantion is provided by [NextAuth.js](https://next-auth.js.org/), using OAuth with Google account.
+And when is comunicating with the server API, uses a jwt to make more security the connection, for evading
+possibles attacks on the databases. For that on this Next.js project, we use the api/proxy method for
+making more safety the connection to the API, masking the API url for.
+
 The ideia is make the most easier way to create an account on the store.
 
 ## Getting Started
@@ -33,6 +37,4 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 TODO:
 
-- [ ] Use Database,and maybe change the context for the cart.
 - [ ] Make the checkout page
-- [ ] Make the add product page for manager(need solutions for image upload)
