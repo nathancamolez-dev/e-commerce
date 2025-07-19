@@ -273,6 +273,7 @@ export function CartModal() {
                         type="button"
                         onClick={() => {
                           console.log('Pagando ', items, subTotal)
+                          // TODO: Some way to make the checkout, redirecting to whatsapp or some way of payment
                         }}
                         className="mt-8 flex h-12 w-32 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400"
                       >
