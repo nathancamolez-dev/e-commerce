@@ -36,6 +36,7 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
         role: user.role as 'ADMIN' | 'USER',
       })
+      session.user.name = user.name
       session.user.role = user.role as 'ADMIN' | 'USER'
       session.jwt = token
 
