@@ -277,7 +277,7 @@ export function CartModal() {
                         }}
                         className="mt-8 flex h-12 w-32 items-center justify-center rounded-full bg-emerald-300 cursor-pointer hover:bg-emerald-400"
                       >
-                        Pagamento
+                        Encomendar
                       </button>
                     </div>
                   </div>

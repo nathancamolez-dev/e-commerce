@@ -66,22 +66,24 @@ export default async function ProductPage(props: ProductProps) {
           {product.description}
         </p>
 
-        <div className="mt-8 flex items-center gap-3">
-          <span className="inline-block  rounded-full bg-violet-200 px-5 py-2.5 font-semibold">
-            {Number(product.price).toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
-          </span>
-          <span className="text-sm text-zinc-500">
-            Em 12x de{' '}
-            {(product.price / 12).toLocaleString('pt-BR', {
-              style: 'currency',
-              currency: 'BRL',
-            })}{' '}
-            s/ juros.
-          </span>
-        </div>
+        {!product.paused && (
+          <div className="mt-8 flex items-center gap-3">
+            <span className="inline-block  rounded-full bg-violet-200 px-5 py-2.5 font-semibold">
+              {Number(product.price).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}
+            </span>
+            <span className="text-sm text-zinc-500">
+              Em 12x de{' '}
+              {(product.price / 12).toLocaleString('pt-BR', {
+                style: 'currency',
+                currency: 'BRL',
+              })}{' '}
+              s/ juros.
+            </span>
+          </div>
+        )}
         {product.paused ? (
           <button
             type="button"
